@@ -11,10 +11,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :shell, :path => "bin/bootstrap.sh"
 
-  config.vm.define :hadoop do |hadoop|
-    hadoop.vm.hostname = "hadoop"
-    hadoop.vm.network :private_network, ip: "192.168.50.101"
-    hadoop.vm.provider "virtualbox" do |v|
+  config.vm.define :demo do |demo|
+    demo.vm.hostname = "demo"
+    demo.vm.network :private_network, ip: "192.168.50.101"
+    demo.vm.provider "virtualbox" do |v|
       v.memory = 4096
     end
   end
