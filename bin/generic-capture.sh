@@ -11,9 +11,6 @@ FILE_PATTERN=${FILE_PATTERN:-"*"}
 UPLOAD_DIR=${UPLOAD_DIR:-"/user/flume/captured"}
 
 LISTING=${CAPTURE_DIR}/${FILE_PATTERN}${READY_FLAG}
-
-if [ ! -d $UPLOAD_DIR ]
-then
 	
 for file in `ls ${LISTING}`
 do
