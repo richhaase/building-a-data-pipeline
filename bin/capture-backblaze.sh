@@ -27,7 +27,7 @@ function load() {
 	do
     	sudo -u flume unzip -j /tmp/data_201${i}.zip -d $FLUME_DIR
 	done
-	sudo -u flume unzip -j /tmp/data_201${i}.zip -d $FLUME_DIR
+	sudo -u flume unzip -j /tmp/data_Q1_2016.zip -d $FLUME_DIR
 }
 
 # Usage message
