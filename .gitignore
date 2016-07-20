@@ -21,3 +21,4 @@ gradlew.bat
 settings.gradle
 
 .vagrant
+/.DS_Store

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 ''' Summarize the hadoopecosystemtable.github.io '''
 import requests
 

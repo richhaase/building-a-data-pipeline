@@ -8,10 +8,13 @@ TIMESTAMP=`date '+%Y%m%d%H%M%S'`
 CAPTURE_DIR=${CAPTURE_DIR:-"/tmp"}
 READY_FLAG=${READY_FLAG:-".READY"}
 FILE_PATTERN=${FILE_PATTERN:-"*"}
-UPLOAD_DIR=${UPLOAD_DIR:-"/user/rhaase/captured"}
+UPLOAD_DIR=${UPLOAD_DIR:-"/user/flume/captured"}
 
 LISTING=${CAPTURE_DIR}/${FILE_PATTERN}${READY_FLAG}
 
+if [ ! -d $UPLOAD_DIR ]
+then
+	
 for file in `ls ${LISTING}`
 do
   uploadfile=${UPLOAD_DIR}/${TIMESTAMP}/`basename $file $READY_FLAG`
