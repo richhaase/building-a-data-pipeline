@@ -1,17 +1,17 @@
-<workflow-app xmlns="uri:oozie:workflow:0.5" name="enrich.workflow">
+<workflow-app xmlns="uri:oozie:workflow:0.5" name="example-workflow">
 	
 	<start to="hasFiles" />
 	
 	<decision name="hasFiles">
         <switch>
-            <case to="enrich">
+            <case to="example">
               ${fs:exists(concat(inputDir, date)}
             </case>
             <default to="end"/>
         </switch>
     </decision>
 	
-	<action name="enrich">
+	<action name="example">
 		<pig>
 			<job-tracker>${jobTracker}</job-tracker>
 			<name-node>${nameNode}</name-node>
@@ -28,7 +28,7 @@
         			<value>true</value>
     			</property>
 			</configuration>
-			<script>enrich.pig</script>
+			<script>example.pig</script>
 			<argument>-param</argument>
 			<argument>DATE=${date}</argument>
         </pig>
