@@ -35,13 +35,13 @@
 6. Submit example workflow
 
 	```
-	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config sync/cfg/example/job.properties -submit -D date=`date '+%Y%m%d'` 
+	sudo -u mapred oozie job -oozie http://localhost:11000/oozie -config sync/cfg/example/job.properties -submit -D date=`date '+%Y%m%d'` 
 	```
 
 7. Start the example workflow 
 
 	```
-	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -start <oozie-workflow-id>
+	sudo -u mapred oozie job -oozie http://localhost:11000/oozie -start <oozie-workflow-id>
 	```
 	
 8. Run pig script directly
