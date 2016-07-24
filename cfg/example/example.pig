@@ -24,7 +24,7 @@ useful = FOREACH filtered GENERATE $0.$1 as serial_number,
 
 grouped_failures = GROUP useful BY serial_number;
 
-STORE records INTO '/user/hdfs/hdd/$DATE'
+STORE useful INTO '/user/hdfs/hdd/$DATE'
     USING org.apache.pig.piggybank.storage.avro.AvroStorage(
         '{
             "schema": {
