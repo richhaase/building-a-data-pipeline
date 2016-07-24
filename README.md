@@ -7,8 +7,11 @@
 ## Demo References
 * [Apache Flume User Guide](https://flume.apache.org/FlumeUserGuide.html)
 * [Apache Pig Documentation](https://pig.apache.org/docs/r0.15.0/overview.html)
+* [GROUP operator in Apache Pig](https://squarecog.wordpress.com/2010/05/11/group-operator-in-apache-pig/)
+* [Building Simple Workflows in Oozie](https://blogs.oracle.com/datawarehousing/entry/building_simple_workflows_in_oozie)
 * [Oozie by Example](https://www.infoq.com/articles/oozieexample)
 * [Oozie Coordinator Examples from Yahoo!](https://github.com/yahoo/oozie/wiki/Oozie-Coord-Use-Cases)
+* [How-to: Use the ShareLib in Apache Oozie (CDH 5)](http://blog.cloudera.com/blog/2014/05/how-to-use-the-sharelib-in-apache-oozie-cdh-5/)
 
 ## Other References
 * [Apache Airflow](https://cwiki.apache.org/confluence/display/AIRFLOW/Airflow+Home)
