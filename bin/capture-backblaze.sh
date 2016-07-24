@@ -21,13 +21,17 @@ function fetch() {
 	done
 }
 
+function unzip_file() {
+  sudo -u flume unzip -o -j /tmp/data_201${i}.zip -d $FLUME_DIR -x "*/\.*"
+}
+
 # Unzip data files into the directory monitored by flume
 function load() {
 	for i in `seq 3 5`
 	do
-    	sudo -u flume unzip -o -j /tmp/data_201${i}.zip -d $FLUME_DIR -x "*/\.*"
+    	unzip_file /tmp/data_201${i}.zip
 	done
-	sudo -u flume unzip -j /tmp/data_Q1_2016.zip -d $FLUME_DIR
+	unzip_file /tmp/data_Q1_2016.zip
 }
 
 # Usage message
