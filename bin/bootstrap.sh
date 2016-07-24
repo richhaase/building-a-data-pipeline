@@ -57,5 +57,6 @@ sudo -u oozie hdfs dfs -put /usr/lib/pig/lib/piggybank.jar /user/oozie/share/lib
 /etc/init.d/oozie start
 
 ## Startup Job History server
-sudo -u hdfs hdfs dfs -mkdir -p /tmp/hadoop-yarn/staging
+sudo -u hdfs hdfs dfs -mkdir -p /tmp/hadoop-yarn/staging/history/done_intermediate
 sudo -u hdfs hdfs dfs -chmod -R 0777 /tmp
+/etc/init.d/hadoop-mapreduce-historyserver start
