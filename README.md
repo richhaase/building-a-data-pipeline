@@ -23,7 +23,7 @@
 * [ODPi](https://www.odpi.org/)
 * [Hortonworks Documentation](http://docs.hortonworks.com/index.html)
 * [IBM Open Platform with Apache Hadoop](http://www-03.ibm.com/software/products/en/ibm-open-platform-with-apache-hadoop/?S_TACT=M16107JW)
-* "Example – Top Artists — Luigi 2.1.1 documentation". http://luigi.readthedocs.io/en/stable/example_top_artists.html.
+* [Example – Top Artists — Luigi 2.1.1 documentation](http://luigi.readthedocs.io/en/stable/example_top_artists.html)
 * [The Hadoop Ecosystem Table](https://hadoopecosystemtable.github.io/)
 * [Apache Flume](https://flume.apache.org/)
 * [Apache Oozie Workflow Scheduler for Hadoop](http://oozie.apache.org/)
