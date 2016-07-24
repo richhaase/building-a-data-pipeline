@@ -5,7 +5,7 @@
 	<decision name="hasFiles">
         <switch>
             <case to="example">
-              ${fs:exists(concat(inputDir, date)}
+              ${fs:exists(concat(inputDir, date))}
             </case>
             <default to="end"/>
         </switch>
