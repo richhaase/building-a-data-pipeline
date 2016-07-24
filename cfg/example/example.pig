@@ -1,33 +1,46 @@
 /* example.pig
-An example of how to parse useful data from the sequence files 
+An example of how to parse useful data from the sequence files
 loaded by flume (and capture-backblaze.sh)
 */
 
-REGISTER piggybank.jar
-REGISTER avro-*.jar
-REGISTER jackson-core-asl-*.jar
-REGISTER jackson-mapper-asl-*.jar
-REGISTER json-simple-*.jar
-REGISTER snappy-java-*.jar
+REGISTER /usr/lib/pig/piggybank.jar
+
+-- required jars for AvroStorage example
+-- REGISTER avro-*.jar
+-- REGISTER jackson-core-asl-*.jar
+-- REGISTER jackson-mapper-asl-*.jar
+-- REGISTER json-simple-*.jar
+-- REGISTER snappy-java-*.jar
 
 %default DATE `date "+%Y%m%d"`
-raw = LOAD '/user/flume/in/$DATE' USING org.apache.pig.piggybank.storage.SequenceFileLoader();
+%declare GB 1073741824
+
+raw = LOAD '/user/flume/in/$DATE/*' USING org.apache.pig.piggybank.storage.SequenceFileLoader();
 
 fields = FOREACH raw GENERATE STRSPLIT($1, ',', 0);
 filtered = FILTER fields BY $0.$0 != 'date';
 
 -- date,serial_number,model,capacity_bytes,failure
 useful = FOREACH filtered GENERATE $0.$1 as serial_number,
-								   $0.$2 as model,
-								   $0.$3 as capacity_bytes, 
-								   $0.$4 as failure; 
+                                   $0.$2 as model,
+                                   (long) $0.$3 as capacity_bytes,
+                                   (long) $0.$4 as failure;
 
-grouped_by_sn = GROUP useful BY serial_number;
+grouped_by_sn = GROUP useful BY (model, serial_number);
 
-STORE grouped_by_sn USING PigStorage();
+aggregates = FOREACH grouped_by_sn GENERATE
+    FLATTEN(group) AS (model, serial_number),
+    AVG(useful.capacity_bytes)/$GB AS avg_capacity_gb,
+    SUM(useful.failure) AS total_failure;
 
--- Avro Storage example adapted from:
--- https://github.com/miguno/avro-hadoop-starter#Examples-Pig 
+out = ORDER aggregates BY total_failure DESC;
+
+STORE out INTO '/user/mapred/hdd/$DATE' USING PigStorage();
+
+
+
+-- AvroStorage example adapted from:
+-- https://github.com/miguno/avro-hadoop-starter#Examples-Pig
 --
 -- STORE useful INTO '/user/hdfs/hdd/$DATE'
 --     USING org.apache.pig.piggybank.storage.avro.AvroStorage(
