@@ -27,7 +27,7 @@ function unzip_file() {
 
 # Usage message
 function usage() {
-	echo "usage: `basename "$0"` fetch|load"
+echo "usage: `basename "$0"` fetch|load [file]"
 }
 
 case $1 in
