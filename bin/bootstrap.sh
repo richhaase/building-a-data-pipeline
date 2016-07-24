@@ -37,7 +37,7 @@ sudo -u hdfs hdfs namenode -format
 
 ## Setup HDFS directories
 mkdir /var/spool/flume
-chown mapred:mapre /var/spool/flume
+chown mapred:mapred /var/spool/flume
 sudo -u hdfs hdfs dfs -mkdir -p /user/mapred/in
 sudo -u hdfs hdfs dfs -mkdir -p /user/mapred/hdd/cfg
 sudo -u hdfs hdfs dfs -chown -R mapred:mapred /user/mapred
@@ -61,5 +61,5 @@ sudo -u oozie hdfs dfs -put /usr/lib/pig/lib/piggybank.jar /user/oozie/share/lib
 ## Startup Job History server
 sudo -u hdfs hdfs dfs -mkdir -p /tmp/hadoop-yarn/staging/history/done_intermediate
 sudo -u hdfs hdfs dfs -chmod -R 0777 /tmp
-sudo -u hdfs chown -R mapred:mapred /tmp
+sudo -u hdfs hdfs dfs -chown -R mapred:mapred /tmp
 /etc/init.d/hadoop-mapreduce-historyserver start
