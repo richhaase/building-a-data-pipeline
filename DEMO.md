@@ -44,7 +44,7 @@
 	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -start <oozie-workflow-id>
 	```
 	
-8a. Run pig script directly
+8. Run pig script directly
 
 	```
 	sudo -u mapred pig -f sync/cfg/example/example.pig [-p DATE=YYYYMMDD]
