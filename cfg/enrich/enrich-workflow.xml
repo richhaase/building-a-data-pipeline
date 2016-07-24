@@ -1,0 +1,53 @@
+<workflow-app xmlns="uri:oozie:workflow:0.5" name="enrich.workflow">
+	
+	<start to="hasFiles" />
+	
+	<decision name="hasFiles">
+        <switch>
+            <case to="enrich">
+              ${fs:exists(concat(inputDir, date)}
+            </case>
+            <default to="end"/>
+        </switch>
+    </decision>
+	
+	<action name="enrich">
+		<pig>
+			<job-tracker>${jobTracker}</job-tracker>
+			<name-node>${nameNode}</name-node>
+			<prepare>
+    			<delete path="${outputDir}${date}"/>
+			</prepare>
+			<configuration>
+    			<property>
+        			<name>mapred.compress.map.output</name>
+        			<value>true</value>
+    			</property>
+    			<property>
+        			<name>oozie.action.external.stats.write</name>
+        			<value>true</value>
+    			</property>
+			</configuration>
+			<script>enrich.pig</script>
+			<argument>-param</argument>
+			<argument>DATE=${date}</argument>
+        </pig>
+        <ok to="removeInput"/>
+        <error to="error"/>
+    </action>
+    
+    <action name="removeInput">
+         <fs>
+            <delete path="${inputDir}${date}"/>
+        </fs>
+        <ok to="end"/>
+        <error to="error"/>
+    </action>
+
+	<kill name="error">
+		<message>Workflow failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+	</kill>
+	
+	<end name="end"/>
+
+</workflow-app>

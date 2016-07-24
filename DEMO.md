@@ -38,18 +38,21 @@
 	<Ctrl-a>c
 	```
 	
-7. Run the script to unpack the [Backblaze data files](https://www.backblaze.com/b2/hard-drive-test-data.html) into the directory being watched by the [Flume](http://flume.apache.org) agent
+7. Run the script to unpack the [Backblaze data files](https://www.backblaze.com/b2/hard-drive-test-data.html) into the directory being watched by a [Flume](http://flume.apache.org) agent
 
 	```
 	sync/bin/capture-backblaze.sh load
 	```
 
-8. Run pig enrichment script (possibly via oozie?)
+8. Submit Oozie workflow
 
 	```
-	pig sync/bin/enrich.pig
+	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config sync/cfg/enrich/job.properties -submit
 	```
 
-9. Run spark or hive job?
+9. Start the workflow 
 
+	```
+	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -start <oozie-workflow-id>
+	```
 	
