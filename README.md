@@ -6,6 +6,9 @@
 	
 	`$ vagrant plugin install vagrant-hostsupdater`
 	
+## Sample Data Provided by Backblaze
+* https://www.backblaze.com/b2/hard-drive-test-data.html
+	
 ## Demo References
 * [Apache Flume User Guide](https://flume.apache.org/FlumeUserGuide.html)
 * [Apache Pig Documentation](https://pig.apache.org/docs/r0.15.0/overview.html)

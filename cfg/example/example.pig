@@ -15,7 +15,7 @@ REGISTER /usr/lib/pig/piggybank.jar
 %default DATE `date "+%Y%m%d"`
 %declare GB 1073741824
 
-raw = LOAD '/user/flume/in/$DATE/*' USING org.apache.pig.piggybank.storage.SequenceFileLoader();
+raw = LOAD '/user/mapred/in/$DATE/*' USING org.apache.pig.piggybank.storage.SequenceFileLoader();
 
 fields = FOREACH raw GENERATE STRSPLIT($1, ',', 0);
 filtered = FILTER fields BY $0.$0 != 'date';

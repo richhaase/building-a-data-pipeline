@@ -35,18 +35,19 @@ sudo -u hdfs hdfs namenode -format
 /etc/init.d/hadoop-yarn-resourcemanager start
 /etc/init.d/hadoop-yarn-nodemanager start
 
-## Setup Flume
+## Setup HDFS directories
 mkdir /var/spool/flume
-chown flume:flume /var/spool/flume
-sudo -u hdfs hdfs dfs -mkdir -p /user/flume/in
-sudo -u hdfs hdfs dfs -chown -R flume:flume /user/flume
+chown mapred:mapre /var/spool/flume
+sudo -u hdfs hdfs dfs -mkdir -p /user/mapred/in
+sudo -u hdfs hdfs dfs -mkdir -p /user/mapred/hdd/cfg
+sudo -u hdfs hdfs dfs -chown -R mapred:mapred /user/mapred
+sudo -u hdfs hdfs dfs -put sync/cfg/example/* /user/mapred/hdd/cfg
+	
 
 ## Setup Oozie job
 sudo -u hdfs hdfs dfs -mkdir -p /user/oozie/share/lib
 sudo -u hdfs hdfs dfs -chown -R oozie:oozie /user/oozie
-sudo -u hdfs hdfs dfs -mkdir -p /user/mapred/hdd/cfg
-sudo -u hdfs hdfs dfs -put sync/cfg/example/* /user/mapred/hdd/cfg
-sudo -u hdfs hdfs dfs -chown -R mapred:mapred /user/mapred
+
 # for some reason oozie ships with commons-io-2.1, but needs commons-io-2.4 
 # in order to run `oozie-setup sharelib create -fs <hdfs-path>`
 # See https://mail-archives.apache.org/mod_mbox/oozie-user/201507.mbox/%3CCALBGZ8o4n27S8w6fn3HFxfzJmZbA9Gsz71Ewg+r6XEFCZTFpPQ@mail.gmail.com%3E
@@ -60,5 +61,5 @@ sudo -u oozie hdfs dfs -put /usr/lib/pig/lib/piggybank.jar /user/oozie/share/lib
 ## Startup Job History server
 sudo -u hdfs hdfs dfs -mkdir -p /tmp/hadoop-yarn/staging/history/done_intermediate
 sudo -u hdfs hdfs dfs -chmod -R 0777 /tmp
-sudo -u hdfs chown -R mapred:mapred
+sudo -u hdfs chown -R mapred:mapred /tmp
 /etc/init.d/hadoop-mapreduce-historyserver start

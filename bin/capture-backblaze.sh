@@ -22,7 +22,7 @@ function fetch() {
 }
 
 function unzip_file() {
-	sudo -u flume unzip -o -j $1 -d $FLUME_DIR -x "*/\.*"
+	sudo -u mapred unzip -o -j $1 -d $FLUME_DIR -x "*/\.*"
 }
 
 # Usage message
