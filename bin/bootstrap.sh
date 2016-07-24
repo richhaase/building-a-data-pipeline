@@ -51,7 +51,11 @@ sudo -u hdfs hdfs dfs -put sync/cfg/example/* /user/hdfs/hdd/cfg
 # See https://mail-archives.apache.org/mod_mbox/oozie-user/201507.mbox/%3CCALBGZ8o4n27S8w6fn3HFxfzJmZbA9Gsz71Ewg+r6XEFCZTFpPQ@mail.gmail.com%3E
 cp /usr/lib/hive/lib/commons-io-2.4.jar /usr/lib/oozie/lib/
 oozie-setup sharelib create -fs hdfs://localhost:8020/user/oozie/share/lib
+sudo -u oozie hdfs dfs -put /usr/lib/pig/lib/piggybank.jar /user/oozie/share/lib/lib_*/pig
 
 ## Start Oozie
 /etc/init.d/oozie start
 
+## Startup Job History server
+sudo -u hdfs hdfs dfs -mkdir -p /tmp/hadoop-yarn/staging
+sudo -u hdfs hdfs dfs -chmod -R 0777 /tmp
