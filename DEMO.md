@@ -29,13 +29,13 @@
 5. Run the script to unpack the [Backblaze data files](https://www.backblaze.com/b2/hard-drive-test-data.html) into the directory being watched by a [Flume](http://flume.apache.org) agent
 
 	```
-	sync/bin/capture-backblaze.sh load
+	sync/bin/capture-backblaze.sh load /tmp/data_2013.zip
 	```
 
 6. Submit example workflow
 
 	```
-	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config sync/cfg/example/job.properties -submit
+	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config sync/cfg/example/job.properties -submit -D date=`date '+%Y%m%d'` 
 	```
 
 7. Start the example workflow 
