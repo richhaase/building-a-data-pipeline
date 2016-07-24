@@ -25,7 +25,7 @@ function fetch() {
 function load() {
 	for i in `seq 3 5`
 	do
-    	sudo -u flume unzip -j /tmp/data_201${i}.zip -d $FLUME_DIR
+    	sudo -u flume unzip -o -j /tmp/data_201${i}.zip -d $FLUME_DIR -x "*/\.*"
 	done
 	sudo -u flume unzip -j /tmp/data_Q1_2016.zip -d $FLUME_DIR
 }
