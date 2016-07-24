@@ -22,37 +22,42 @@ useful = FOREACH filtered GENERATE $0.$1 as serial_number,
 								   $0.$3 as capacity_bytes, 
 								   $0.$4 as failure; 
 
-grouped_failures = GROUP useful BY serial_number;
+grouped_by_sn = GROUP useful BY serial_number;
 
-STORE useful INTO '/user/hdfs/hdd/$DATE'
-    USING org.apache.pig.piggybank.storage.avro.AvroStorage(
-        '{
-            "schema": {
-                "type": "record",
-                "name": "backblaze",
-                "namespace": "com.richhaase",
-                "fields": [
-                    {
-                        "name": "date",
-                        "type": "string"
-                    },
-                    {
-                        "name": "serial_number",
-                        "type": "string"
-                    },
-                    {
-                        "name": "model",
-                        "type": "string"
-                    },
-                    {
-                        "name": "capacity_bytes",
-                        "type": "long"
-                    },
-                             {
-                        "name": "failure",
-                        "type": "int"
-                    }
-                ],
-                "doc:" : "A simplified Backblaze HDD failure data record"
-            }
-        }');
+STORE grouped_by_sn USING PigStorage();
+
+-- Avro Storage example adapted from:
+-- https://github.com/miguno/avro-hadoop-starter#Examples-Pig 
+--
+-- STORE useful INTO '/user/hdfs/hdd/$DATE'
+--     USING org.apache.pig.piggybank.storage.avro.AvroStorage(
+--         '{
+--             "schema": {
+--                 "type": "record",
+--                 "name": "backblaze",
+--                 "namespace": "com.richhaase",
+--                 "fields": [
+--                     {
+--                         "name": "date",
+--                         "type": "string"
+--                     },
+--                     {
+--                         "name": "serial_number",
+--                         "type": "string"
+--                     },
+--                     {
+--                         "name": "model",
+--                         "type": "string"
+--                     },
+--                     {
+--                         "name": "capacity_bytes",
+--                         "type": "long"
+--                     },
+--                              {
+--                         "name": "failure",
+--                         "type": "int"
+--                     }
+--                 ],
+--                 "doc:" : "A simplified Backblaze HDD failure data record"
+--             }
+--         }');
