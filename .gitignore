@@ -22,3 +22,6 @@ settings.gradle
 
 .vagrant
 /.DS_Store
+
+*.iml
+.idea/*
