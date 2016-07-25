@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+chmod 755 /home/vagrant 
+
 ## We don't need no stinking firewall
 systemctl disable firewalld
 systemctl stop firewalld
@@ -54,3 +56,18 @@ sudo -u oozie hdfs dfs -put /usr/lib/pig/lib/piggybank.jar /user/oozie/share/lib
 ## Start Oozie
 /etc/init.d/oozie start
 
+DEMODIR=/home/vagrant/sync
+
+## Load Oozie workflow
+sudo -u hdfs hdfs dfs -put $DEMODIR/cfg/example/* /user/mapred/hdd/cfg
+
+## Overwrite default capacity-schedule.xml file
+## Our copy contains yarn.scheduler.capacity.maximum-am-resource-percent=0.6
+## to allow our multiple application masters to run on our pseudo cluster at once.
+cat $DEMODIR/cfg/capacity-scheduler.xml > /etc/hadoop/conf/capacity-scheduler.xml
+
+## Startup Job History server
+sudo -u hdfs hdfs dfs -mkdir -p /tmp/hadoop-yarn/staging/history/done_intermediate
+sudo -u hdfs hdfs dfs -chmod -R 0777 /tmp
+sudo -u hdfs hdfs dfs -chown -R mapred:mapred /tmp
+/etc/init.d/hadoop-mapreduce-historyserver start
