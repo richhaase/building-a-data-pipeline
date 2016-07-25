@@ -18,14 +18,14 @@ The output data from the example will be an ordered listing of failure rates by 
 
 ## Instructions
 
-1. Clone this repo
+1. Clone this [repo](https://github.com/richhaase/building-a-data-pipeline.git).
 
 	```
 	git clone https://github.com/richhaase/building-a-data-pipeline.git
 	cd building-a-data-pipeline
 	```
 	
-2. Launch the demo virtual machine (this will take several minutes)	
+2. Launch the demo virtual machine (this will take several minutes the first time you run it).
 	
 	```
 	gallifrey:building-a-data-pipeline (master*) $ vagrant up
@@ -49,42 +49,47 @@ The output data from the example will be an ordered listing of failure rates by 
 	
 	...
 	
-	
+    ==> demo: Create OOZIE_SYS table
+    ==> demo: DONE
+    ==> demo: 
+    ==> demo: Oozie DB has been created for Oozie version '4.2.0'
+    ==> demo: 
+    ==> demo: 
+    ==> demo: The SQL commands have been written to: /tmp/ooziedb-5496497486988270863.sql
+    ==> demo: starting historyserver, logging to /var/log/hadoop-mapreduce/mapred-mapred-historyserver-demo.out
+    ==> demo: Started Hadoop historyserver:[  OK  ]
 	    
 	```
 	
-3. Login to the demo virtual machine
+3. Login to the demo virtual machine.
 
 	```
-	vagrant ssh
+	gallifrey:building-a-data-pipeline (master*) $ vagrant ssh
+	[vagrant@demo ~]$
 	```
 	
-4. Run the script to fetch [Backblaze data files](https://www.backblaze.com/b2/hard-drive-test-data.html)
+4. Run the [capture-backblaze.sh](https://github.com/richhaase/building-a-data-pipeline/blob/master/bin/capture-backblaze.sh) script to fetch [Backblaze data files](https://github.com/richhaase/building-a-data-pipeline#sample-data-provided-by-backblaze) .
 
 	```
 	demo/bin/capture-backblaze.sh fetch
 	```
 
-5. Launch the [Flume](http://flume.apache.org) directory watcher agent
+5. Launch the [Flume](http://flume.apache.org) directory watcher agent by running [run-flume.sh].
 
 	```
-	demo/bin/run-flume.sh
+    sudo -u mapred flume-ng agent -n pipeline -f /home/vagrant/sync/cfg/flume-agent-conf.properties
 	```
 	
-6. Run the script to unpack the [Backblaze data files](https://www.backblaze.com/b2/hard-drive-test-data.html) into the directory being watched by a [Flume](http://flume.apache.org) agent
+6. Run the [capture-backblaze.sh](https://github.com/richhaase/building-a-data-pipeline/blob/master/bin/capture-backblaze.sh) script to unpack the [Backblaze data files](https://github.com/richhaase/building-a-data-pipeline#sample-data-provided-by-backblaze) into the directory being watched by a [Flume](http://flume.apache.org) agent.
 
-	```
-	demo/bin/capture-backblaze.sh load /tmp/data_2013.zip
-	```
-
-7. Submit example workflow
-
-	```
-	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config demo/cfg/example/job.properties -submit -D date=`date '+%Y%m%d'` 
+	```shell
+	for file in `ls /tmp/data_*.zip`; do
+	    demo/bin/capture-backblaze.sh load /tmp/data_2013.zip
+	done
 	```
 
-8. Start the example workflow 
+7. Run the example Oozie workflow.
 
 	```
-	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -start <oozie-workflow-id>
+	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config demo/cfg/example/job.properties -run -D date=`date '+%Y%m%d'` 
 	```
