@@ -84,7 +84,7 @@ The output data from the example will be an ordered listing of failure rates by 
 
 	```shell
 	for file in `ls /tmp/data_*.zip`; do
-	    demo/bin/capture-backblaze.sh load /tmp/data_2013.zip
+	    demo/bin/capture-backblaze.sh load $file
 	done
 	```
 
