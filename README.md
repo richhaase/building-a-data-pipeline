@@ -1,7 +1,7 @@
 # Building a data pipeline
 
 * [Slides](https://github.com/richhaase/building-a-data-pipeline/blob/master/slides/building-a-data-pipeline.pdf)
-* [Demo Steps](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md)
+* [Demo Instructions](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md#instructions)
 
 ### Required Software
 * [Virtual Box 5.0](https://www.virtualbox.org/wiki/Download_Old_Builds_5_0)
