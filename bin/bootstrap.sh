@@ -27,6 +27,11 @@ yum install -y flume flume-agent
 wget -O /tmp/ext-2.2.zip http://archive.cloudera.com/gplextras/misc/ext-2.2.zip
 unzip /tmp/ext-2.2.zip -d /var/lib/oozie
 
+## Overwrite default capacity-schedule.xml file
+## Our copy contains yarn.scheduler.capacity.maximum-am-resource-percent=0.6
+## to allow our multiple application masters to run on our pseudo cluster at once.
+cat sync/cfg/capacity-scheduler.xml > /etc/hadoop/conf/capacity-schedule.xml
+
 ## Start sh*t up
 sudo -u hdfs hdfs namenode -format
 
@@ -42,7 +47,6 @@ sudo -u hdfs hdfs dfs -mkdir -p /user/mapred/in
 sudo -u hdfs hdfs dfs -mkdir -p /user/mapred/hdd/cfg
 sudo -u hdfs hdfs dfs -chown -R mapred:mapred /user/mapred
 sudo -u hdfs hdfs dfs -put sync/cfg/example/* /user/mapred/hdd/cfg
-	
 
 ## Setup Oozie job
 sudo -u hdfs hdfs dfs -mkdir -p /user/oozie/share/lib
