@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+BIGTOP_REPO=http://www.apache.org/dist/bigtop/bigtop-1.1.0/repos/centos7/bigtop.repo
+DEMO_DIR=/home/vagrant/sync
+EXT_ZIP=http://archive.cloudera.com/gplextras/misc/ext-2.2.zip
+
+## Allow anyone to read files from the vagrant users home directory
 chmod 755 /home/vagrant 
 
 ## We don't need no stinking firewall
@@ -13,7 +18,7 @@ yum install -y wget unzip net-tools vim tree
 yum install -y java-1.7.0-openjdk-devel
 
 ## Add Bigtop Repo
-wget -O /etc/yum.repos.d/bigtop.repo http://www.apache.org/dist/bigtop/bigtop-1.1.0/repos/centos7/bigtop.repo
+wget -O /etc/yum.repos.d/bigtop.repo ${BIGTOP_REPO}
 yum update -y
 
 ## Install Apache Hadoop psuedo cluster config
@@ -24,7 +29,7 @@ yum install -y oozie
 yum install -y flume flume-agent
 
 ## Install ExtJs 2.2 for Oozie UI
-wget -O /tmp/ext-2.2.zip http://archive.cloudera.com/gplextras/misc/ext-2.2.zip
+wget -O /tmp/ext-2.2.zip ${EXT_ZIP}
 unzip /tmp/ext-2.2.zip -d /var/lib/oozie
 
 ## Start sh*t up
@@ -56,18 +61,18 @@ sudo -u oozie hdfs dfs -put /usr/lib/pig/lib/piggybank.jar /user/oozie/share/lib
 ## Start Oozie
 /etc/init.d/oozie start
 
-DEMODIR=/home/vagrant/sync
-
 ## Load Oozie workflow
-sudo -u hdfs hdfs dfs -put $DEMODIR/cfg/example/* /user/mapred/hdd/cfg
+sudo -u hdfs hdfs dfs -put ${DEMO_DIR}/cfg/example/* /user/mapred/hdd/cfg
 
-## Overwrite default capacity-schedule.xml file
-## Our copy contains yarn.scheduler.capacity.maximum-am-resource-percent=0.6
-## to allow our multiple application masters to run on our pseudo cluster at once.
-cat $DEMODIR/cfg/capacity-scheduler.xml > /etc/hadoop/conf/capacity-scheduler.xml
+# Overwrite default capacity-schedule.xml file
+# Our copy contains yarn.scheduler.capacity.maximum-am-resource-percent=0.6
+# to allow our multiple application masters to run on our pseudo cluster at once.
+cat ${DEMO_DIR}/cfg/capacity-scheduler.xml > /etc/hadoop/conf/capacity-scheduler.xml
 
-## Startup Job History server
-sudo -u hdfs hdfs dfs -mkdir -p /tmp/hadoop-yarn/staging/history/done_intermediate
+## Set Job History HDFS directories
+sudo -u hdfs hdfs dfs -mkdir -p /tmp/hadoop-yarn/staging/history
 sudo -u hdfs hdfs dfs -chmod -R 0777 /tmp
 sudo -u hdfs hdfs dfs -chown -R mapred:mapred /tmp
+
+## Startup Job History server
 /etc/init.d/hadoop-mapreduce-historyserver start
