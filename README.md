@@ -5,7 +5,7 @@
 
 ### Required Software
 * [Virtual Box 5.0](https://www.virtualbox.org/wiki/Download_Old_Builds_5_0)
-* [Vagrant](https://www.vagrantup.com/downloads.html)
+* [Vagrant](https://www.vagrantup.com/downloads.html) and the vagrant-hostsupdater plugin (if you want to access the demo VM by the name `demo`.
 	
 	`$ vagrant plugin install vagrant-hostsupdater`
 	
