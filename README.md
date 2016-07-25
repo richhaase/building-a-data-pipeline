@@ -13,6 +13,7 @@
 * https://www.backblaze.com/b2/hard-drive-test-data.html
 	
 ### Demo References
+* [Vagrant Command-Line Interface](https://www.vagrantup.com/docs/cli/)
 * [Apache Flume User Guide](https://flume.apache.org/FlumeUserGuide.html)
 * [Apache Pig Documentation](https://pig.apache.org/docs/r0.15.0/overview.html)
 * [GROUP operator in Apache Pig](https://squarecog.wordpress.com/2010/05/11/group-operator-in-apache-pig/)
