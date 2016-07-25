@@ -1,7 +1,6 @@
-/* example.pig
-An example of how to parse useful data from the sequence files
-loaded by flume (and capture-backblaze.sh)
-*/
+-- example.pig
+-- An example of how to parse "useful" data from the sequence files 
+-- loaded by flume (and capture-backblaze.sh)
 
 REGISTER /usr/lib/pig/piggybank.jar
 
@@ -17,23 +16,27 @@ REGISTER /usr/lib/pig/piggybank.jar
 
 raw = LOAD '/user/mapred/in/$DATE/*' USING org.apache.pig.piggybank.storage.SequenceFileLoader();
 
+-- get a tuple of fields for each sequence file row
 fields = FOREACH raw GENERATE STRSPLIT($1, ',', 0);
+
+-- filter out file headers
 filtered = FILTER fields BY $0.$0 != 'date';
 
--- date,serial_number,model,capacity_bytes,failure
-useful = FOREACH filtered GENERATE $0.$1 as serial_number,
-                                   $0.$2 as model,
-                                   (long) $0.$3 as capacity_bytes,
+-- model,capacity_bytes,failure
+useful = FOREACH filtered GENERATE $0.$2 as model,
+                                   (long) $0.$3 / $GB as capacity_gb,
                                    (long) $0.$4 as failure;
 
-grouped_by_sn = GROUP useful BY (model, serial_number);
+-- group records by model and capacity
+grouped_by_sn = GROUP useful BY (model, capacity_gb);
 
+-- Count all failures by model and capacity
 aggregates = FOREACH grouped_by_sn GENERATE
-    FLATTEN(group) AS (model, serial_number),
-    AVG(useful.capacity_bytes)/$GB AS avg_capacity_gb,
-    SUM(useful.failure) AS total_failure;
+    FLATTEN(group) AS (model, (int)capacity_gb),
+    SUM(useful.failure) AS failure_rate;
 
-out = ORDER aggregates BY total_failure DESC;
+-- Sort by highest failure_rate descending
+out = ORDER aggregates BY failure_rate DESC;
 
 STORE out INTO '/user/mapred/hdd/$DATE' USING PigStorage();
 
@@ -51,20 +54,12 @@ STORE out INTO '/user/mapred/hdd/$DATE' USING PigStorage();
 --                 "namespace": "com.richhaase",
 --                 "fields": [
 --                     {
---                         "name": "date",
---                         "type": "string"
---                     },
---                     {
---                         "name": "serial_number",
---                         "type": "string"
---                     },
---                     {
 --                         "name": "model",
 --                         "type": "string"
 --                     },
 --                     {
---                         "name": "capacity_bytes",
---                         "type": "long"
+--                         "name": "capacity_gb",
+--                         "type": "int"
 --                     },
 --                              {
 --                         "name": "failure",
