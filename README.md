@@ -1,7 +1,5 @@
 # Building a data pipeline
 
-## Artifacts
-
 * [Slides](https://github.com/richhaase/building-a-data-pipeline/blob/master/slides/building-a-data-pipeline.pdf)
 * [Demo Steps](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md)
 

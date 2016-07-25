@@ -7,7 +7,7 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "centos/7"
-  config.vm.synced_folder ".", "/home/vagrant/demo"
+  config.vm.synced_folder ".", "/home/vagrant/sync", type: "rsync", rsync__exclude: ".git/"
   config.vm.provision :shell, :path => "bin/bootstrap.sh"
 
   config.vm.define :demo do |demo|
