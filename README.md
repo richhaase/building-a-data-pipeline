@@ -1,15 +1,20 @@
 # Building a data pipeline
 
-## Required Software
+## Artifacts
+
+* [Slides](https://github.com/richhaase/building-a-data-pipeline/blob/master/slides/building-a-data-pipeline.pdf)
+* [Demo Steps](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md)
+
+### Required Software
 * [Virtual Box 5.0](https://www.virtualbox.org/wiki/Download_Old_Builds_5_0)
 * [Vagrant](https://www.vagrantup.com/downloads.html)
 	
 	`$ vagrant plugin install vagrant-hostsupdater`
 	
-## Sample Data Provided by Backblaze
+### Sample Data Provided by Backblaze
 * https://www.backblaze.com/b2/hard-drive-test-data.html
 	
-## Demo References
+### Demo References
 * [Apache Flume User Guide](https://flume.apache.org/FlumeUserGuide.html)
 * [Apache Pig Documentation](https://pig.apache.org/docs/r0.15.0/overview.html)
 * [GROUP operator in Apache Pig](https://squarecog.wordpress.com/2010/05/11/group-operator-in-apache-pig/)
@@ -18,7 +23,7 @@
 * [Oozie Coordinator Examples from Yahoo!](https://github.com/yahoo/oozie/wiki/Oozie-Coord-Use-Cases)
 * [How-to: Use the ShareLib in Apache Oozie (CDH 5)](http://blog.cloudera.com/blog/2014/05/how-to-use-the-sharelib-in-apache-oozie-cdh-5/)
 
-## Other References
+### Other References
 * [Apache Airflow](https://cwiki.apache.org/confluence/display/AIRFLOW/Airflow+Home)
 * [Apache Hadoop 2.7.2](https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SecureMode.html)
 * [Apache Sentry](https://sentry.apache.org/)
