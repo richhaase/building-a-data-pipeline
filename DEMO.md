@@ -21,8 +21,17 @@ The output data from the example will be an ordered listing of failure rates by 
 1. Clone this [repo](https://github.com/richhaase/building-a-data-pipeline.git).
 
 	```
-	git clone https://github.com/richhaase/building-a-data-pipeline.git
-	cd building-a-data-pipeline
+	gallifrey:src $ git clone https://github.com/richhaase/building-a-data-pipeline.git
+    Cloning into 'building-a-data-pipeline'...
+    remote: Counting objects: 232, done.
+    remote: Compressing objects: 100% (67/67), done.
+    remote: Total 232 (delta 33), reused 0 (delta 0), pack-reused 165
+    Receiving objects: 100% (232/232), 39.09 KiB | 0 bytes/s, done.
+    Resolving deltas: 100% (121/121), done.
+    Checking connectivity... done.
+    gallifrey:src $ cd building-a-data-pipeline 
+    gallifrey:building-a-data-pipeline (master) $ ls
+    DEMO.md     LICENSE     README.md   Vagrantfile bin         cfg
 	```
 	
 2. Launch the demo virtual machine (this will take several minutes the first time you run it).
@@ -93,3 +102,15 @@ The output data from the example will be an ordered listing of failure rates by 
 	```
 	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config demo/cfg/example/job.properties -run -D date=`date '+%Y%m%d'` 
 	```
+
+## Screenshots
+
+### Namenode Web UI after VM setup
+![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/namenode1.png "Namenode on initial startup")
+
+### Resource Manager Web UI after VM setup
+![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/resourcemanager1.png "Resource Manager on initial startup")
+
+### Oozie Web UI after VM setup 
+![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/oozie1.png "Oozie Web UI on initial startup")
+
