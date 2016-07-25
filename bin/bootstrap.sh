@@ -54,4 +54,3 @@ sudo -u oozie hdfs dfs -put /usr/lib/pig/lib/piggybank.jar /user/oozie/share/lib
 ## Start Oozie
 /etc/init.d/oozie start
 
-
