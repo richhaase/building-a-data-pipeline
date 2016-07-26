@@ -37,14 +37,14 @@ yum update -y
 
 ## Install Apache Hadoop psuedo cluster config
 yum install -y hadoop-conf-pseudo 
-yum install -y spark-core
-yum install -y pig pig-udf-datafu
-yum install -y oozie
-yum install -y flume flume-agent
+yum install -y pig pig-udf-datafu oozie flume flume-agent
 
 ## Install ExtJs 2.2 for Oozie UI
 wget -O /tmp/ext-2.2.zip ${EXT_ZIP}
 unzip /tmp/ext-2.2.zip -d /var/lib/oozie
+
+## Make mapreduce jobhistory server publicly visible
+sed -i -e 's/localhost/0.0.0.0/g' /etc/hadoop/conf/mapred-site.xml
 
 ## Start sh*t up
 sudo -u hdfs hdfs namenode -format

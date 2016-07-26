@@ -32,11 +32,17 @@ The output data from the example will be an ordered listing of failure rates by 
     Receiving objects: 100% (232/232), 39.09 KiB | 0 bytes/s, done.
     Resolving deltas: 100% (121/121), done.
     Checking connectivity... done.
-    gallifrey:src $ cd building-a-data-pipeline 
+    ```
+
+    ```
+    cd building-a-data-pipeline
+    ```
+
+    ```
     gallifrey:building-a-data-pipeline (master) $ ls
     DEMO.md     LICENSE     README.md   Vagrantfile bin         cfg
 	```
-	
+
 2. Launch the demo virtual machine (this will take several minutes the first time you run it).
 	
 	```
