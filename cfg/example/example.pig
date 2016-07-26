@@ -47,11 +47,11 @@ grouped_by_sn = GROUP useful BY (model, capacity_gb);
 
 -- Count all failures by model and capacity
 aggregates = FOREACH grouped_by_sn GENERATE
-    FLATTEN(group) AS (model, (int)capacity_gb),
-    SUM(useful.failure) AS failure_rate;
+    FLATTEN(group) AS (model, capacity_gb),
+    SUM(useful.failure) AS total_failures;
 
 -- Sort by highest failure_rate descending
-out = ORDER aggregates BY failure_rate DESC;
+out = ORDER aggregates BY total_failures DESC;
 
 STORE out INTO '/user/mapred/hdd/$DATE' USING PigStorage();
 
