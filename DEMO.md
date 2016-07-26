@@ -241,14 +241,31 @@ The output data from the example will be an ordered listing of failure rates by 
     
     ...
     
+    16/07/26 00:43:55 INFO avro.ReliableSpoolingFileEventReader: Last read took us just up to a file boundary. Rolling to the next file, if there is one.
+    16/07/26 00:43:55 INFO avro.ReliableSpoolingFileEventReader: Preparing to delete file /var/spool/flume/2016-03-30.csv
+    16/07/26 00:43:57 INFO avro.ReliableSpoolingFileEventReader: Last read took us just up to a file boundary. Rolling to the next file, if there is one.
+    16/07/26 00:43:57 INFO avro.ReliableSpoolingFileEventReader: Preparing to delete file /var/spool/flume/2016-03-31.csv
     
+    16/07/26 00:45:00 INFO hdfs.BucketWriter: Closing idle bucketWriter /user/mapred/in/20160726/backblaze.1469492192443.seq.tmp at 1469493900581
+    16/07/26 00:45:00 INFO hdfs.BucketWriter: Closing /user/mapred/in/20160726/backblaze.1469492192443.seq.tmp
+    16/07/26 00:45:00 INFO hdfs.BucketWriter: Renaming /user/mapred/in/20160726/backblaze.1469492192443.seq.tmp to /user/mapred/in/20160726/backblaze.1469492192443.seq
+    16/07/26 00:45:00 INFO hdfs.HDFSEventSink: Writer callback called.
     ```
 
 7. Run the example Oozie workflow .
 
 	```
-	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config demo/cfg/example/job.properties -run -D date=`date '+%Y%m%d'` 
-	```
+    [vagrant@demo ~]$ sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config sync/cfg/example/job.properties -run -D date=all 
+    SLF4J: Class path contains multiple SLF4J bindings.
+    SLF4J: Found binding in [jar:file:/usr/lib/oozie/lib/slf4j-log4j12-1.6.6.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: Found binding in [jar:file:/usr/lib/oozie/lib/slf4j-simple-1.6.6.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+    SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+    SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+    log4j:WARN No appenders could be found for logger (org.apache.hadoop.security.authentication.client.KerberosAuthenticator).
+    log4j:WARN Please initialize the log4j system properly.
+    log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+    job: 0000000-160725232740849-oozie-oozi-W
+    ```
 
 ## Screenshots
 
