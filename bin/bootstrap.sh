@@ -51,6 +51,12 @@ sudo -u hdfs hdfs namenode -format
 
 /etc/init.d/hadoop-hdfs-namenode start
 /etc/init.d/hadoop-hdfs-datanode start
+
+# Overwrite default capacity-schedule.xml file
+# Our copy contains yarn.scheduler.capacity.maximum-am-resource-percent=0.6
+# to allow our multiple application masters to run on our pseudo cluster at once.
+cat ${DEMO_DIR}/cfg/capacity-scheduler.xml > /etc/hadoop/conf/capacity-scheduler.xml
+
 /etc/init.d/hadoop-yarn-resourcemanager start
 /etc/init.d/hadoop-yarn-nodemanager start
 
@@ -77,11 +83,6 @@ sudo -u oozie hdfs dfs -put /usr/lib/pig/lib/piggybank.jar /user/oozie/share/lib
 
 ## Load Oozie workflow
 sudo -u mapred hdfs dfs -put ${DEMO_DIR}/cfg/example/* /user/mapred/hdd/cfg
-
-# Overwrite default capacity-schedule.xml file
-# Our copy contains yarn.scheduler.capacity.maximum-am-resource-percent=0.6
-# to allow our multiple application masters to run on our pseudo cluster at once.
-cat ${DEMO_DIR}/cfg/capacity-scheduler.xml > /etc/hadoop/conf/capacity-scheduler.xml
 
 ## Set Job History HDFS directories
 sudo -u hdfs hdfs dfs -mkdir -p /tmp/hadoop-yarn/staging/history

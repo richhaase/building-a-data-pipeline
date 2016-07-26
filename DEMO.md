@@ -13,8 +13,19 @@ The demo will download hard drive failure rate data from Backblaze.  The raw dat
 
 
 ## Output Data
-The output data from the example will be an ordered listing of failure rates by model number and disk capacity.
+The output data from the example will be an ordered listing of failure rates by model number and disk capacity.  The column headings (if they existed) would be model, capacity in GB, total failures.
 
+    ST3000DM001	2794	266
+    ST31500541AS	1397	123
+    ST31500341AS	1397	91
+    ST1500DL003	1397	51
+    ST4000DM000	3726	48
+    Hitachi HDS722020ALA330	1863	28
+    Hitachi HDS5C3030ALA630	2794	26
+    Hitachi HDS5C4040ALE630	3726	23
+    WDC WD30EZRX	2794	17
+    ST32000542AS	1863	14
+    WDC WD10EADS	931	12
 
 ## Instructions
 
@@ -208,7 +219,10 @@ The output data from the example will be an ordered listing of failure rates by 
 6. Run the [capture-backblaze.sh](https://github.com/richhaase/building-a-data-pipeline/blob/master/bin/capture-backblaze.sh) script to unpack the [Backblaze data files](https://github.com/richhaase/building-a-data-pipeline#sample-data-provided-by-backblaze) into the directory being watched by a [Flume](http://flume.apache.org) agent.
 
 	```shell
-	[vagrant@demo ~]$ for file in `ls /tmp/data_*.zip`; do sync/bin/capture-backblaze.sh load $file; done
+	for file in `ls /tmp/data_*.zip`; do sync/bin/capture-backblaze.sh load $file; done
+	```
+
+	```
     Archive:  /tmp/data_2013.zip
       inflating: /var/spool/flume/2013-10-17.csv  
       inflating: /var/spool/flume/2013-10-20.csv  
@@ -260,7 +274,10 @@ The output data from the example will be an ordered listing of failure rates by 
 7. Run the example Oozie workflow .
 
 	```
-    [vagrant@demo ~]$ sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config sync/cfg/example/job.properties -run -D date=all 
+    sudo -u mapred oozie job -oozie http://localhost:11000/oozie -config sync/cfg/example/job.properties -run -D date=<YYYYMMDD>
+    ```
+
+    ```
     SLF4J: Class path contains multiple SLF4J bindings.
     SLF4J: Found binding in [jar:file:/usr/lib/oozie/lib/slf4j-log4j12-1.6.6.jar!/org/slf4j/impl/StaticLoggerBinder.class]
     SLF4J: Found binding in [jar:file:/usr/lib/oozie/lib/slf4j-simple-1.6.6.jar!/org/slf4j/impl/StaticLoggerBinder.class]
@@ -282,3 +299,6 @@ The output data from the example will be an ordered listing of failure rates by 
 
 ### Oozie Web UI after VM setup 
 ![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/oozie1.png "Oozie Web UI on initial startup")
+
+### Resource Manager view of a running Pig job
+![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/running-pig-job1.png "Running Pig job")
