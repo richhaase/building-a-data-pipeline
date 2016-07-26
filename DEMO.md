@@ -289,6 +289,9 @@ The output data from the example will be an ordered listing of failure rates by 
     job: 0000000-160725232740849-oozie-oozi-W
     ```
 
+    * [Running Pig Job](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md#oozie-web-ui-after-vm-setup)
+    * [Completed Oozie Workflow](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md#oozie-web-ui-after-vm-setup)
+    
 ## Screenshots
 
 ### Namenode Web UI after VM setup
@@ -302,3 +305,6 @@ The output data from the example will be an ordered listing of failure rates by 
 
 ### Resource Manager view of a running Pig job
 ![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/running-pig-job1.png "Running Pig job")
+
+### Completed Oozie Workflow
+![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/oozie-workflow.png "Completed Oozie Workflow")
