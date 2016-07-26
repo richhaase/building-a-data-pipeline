@@ -22,7 +22,7 @@
 * [Oozie Coordinator Examples from Yahoo!](https://github.com/yahoo/oozie/wiki/Oozie-Coord-Use-Cases)
 * [How-to: Use the ShareLib in Apache Oozie (CDH 5)](http://blog.cloudera.com/blog/2014/05/how-to-use-the-sharelib-in-apache-oozie-cdh-5/)
 
-### Other References
+### Other Useful References
 * [Apache Airflow](https://cwiki.apache.org/confluence/display/AIRFLOW/Airflow+Home)
 * [Apache Hadoop 2.7.2](https://hadoop.apache.org/docs/r2.7.2/hadoop-project-dist/hadoop-common/SecureMode.html)
 * [Apache Sentry](https://sentry.apache.org/)

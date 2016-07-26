@@ -21,7 +21,10 @@ The output data from the example will be an ordered listing of failure rates by 
 1. Clone this [repo](https://github.com/richhaase/building-a-data-pipeline.git).
 
 	```
-	gallifrey:src $ git clone https://github.com/richhaase/building-a-data-pipeline.git
+	git clone https://github.com/richhaase/building-a-data-pipeline.git
+	```
+
+	```
     Cloning into 'building-a-data-pipeline'...
     remote: Counting objects: 232, done.
     remote: Compressing objects: 100% (67/67), done.
@@ -37,7 +40,10 @@ The output data from the example will be an ordered listing of failure rates by 
 2. Launch the demo virtual machine (this will take several minutes the first time you run it).
 	
 	```
-	gallifrey:building-a-data-pipeline (master*) $ vagrant up
+	vagrant up
+	```
+
+	```
 	Bringing machine 'demo' up with 'virtualbox' provider...
 	==> demo: Importing base box 'centos/7'...
 	==> demo: Matching MAC address for NAT networking...
@@ -69,22 +75,28 @@ The output data from the example will be an ordered listing of failure rates by 
     ==> demo: Started Hadoop historyserver:[  OK  ]
 	    
 	```
-	
-[Namenode Web UI after VM Setup](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md#namenode-web-ui-after-vm-setup)
-[Resource Manager Web UI after VM setup](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md#resource-manager-web-ui-after-vm-setup)
-[Oozie Web UI after VM setup](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md#oozie-web-ui-after-vm-setup)
+
+    * [Namenode Web UI after VM Setup](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md#namenode-web-ui-after-vm-setup)
+    * [Resource Manager Web UI after VM setup](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md#resource-manager-web-ui-after-vm-setup)
+    * [Oozie Web UI after VM setup](https://github.com/richhaase/building-a-data-pipeline/blob/master/DEMO.md#oozie-web-ui-after-vm-setup)
 
 3. Login to the demo virtual machine.
 
 	```
-	gallifrey:building-a-data-pipeline (master*) $ vagrant ssh
+	vagrant ssh
+	```
+	
+	```
 	[vagrant@demo ~]$
 	```
 	
 4. Run the [capture-backblaze.sh](https://github.com/richhaase/building-a-data-pipeline/blob/master/bin/capture-backblaze.sh) script to fetch [Backblaze data files](https://github.com/richhaase/building-a-data-pipeline#sample-data-provided-by-backblaze) .
 
 	```
-	[vagrant@demo ~]$ sync/bin/capture-backblaze.sh fetch
+	sync/bin/capture-backblaze.sh fetch
+	```
+	
+	```
     Fetching https://f001.backblaze.com/file/Backblaze-Hard-Drive-Data/data_2013.zip
     --2016-07-25 23:48:30--  https://f001.backblaze.com/file/Backblaze-Hard-Drive-Data/data_2013.zip
     Resolving f001.backblaze.com (f001.backblaze.com)... 162.244.61.204
@@ -134,10 +146,13 @@ The output data from the example will be an ordered listing of failure rates by 
     2016-07-26 00:02:14 (2.38 MB/s) - ‘/tmp/data_Q1_2016.zip’ saved [270281889/270281889]
 	```
 
-5. Launch the [Flume](http://flume.apache.org) directory watcher agent by running [run-flume.sh].
+5. Launch the [Flume](http://flume.apache.org) directory watcher agent.
 
 	```
-    [vagrant@demo ~]$ sudo -u mapred flume-ng agent -n pipeline -f /home/vagrant/sync/cfg/flume-agent-conf.properties
+    sudo -u mapred flume-ng agent -n pipeline -f /home/vagrant/sync/cfg/flume-agent-conf.properties
+    ```
+
+    ```
     Warning: No configuration directory set! Use --conf <dir> to override.
     Info: Including Hadoop libraries found via (/bin/hadoop) for HDFS access
     Info: Excluding /usr/lib/hadoop/lib/slf4j-api-1.7.10.jar from classpath
@@ -187,18 +202,49 @@ The output data from the example will be an ordered listing of failure rates by 
 6. Run the [capture-backblaze.sh](https://github.com/richhaase/building-a-data-pipeline/blob/master/bin/capture-backblaze.sh) script to unpack the [Backblaze data files](https://github.com/richhaase/building-a-data-pipeline#sample-data-provided-by-backblaze) into the directory being watched by a [Flume](http://flume.apache.org) agent.
 
 	```shell
-	for file in `ls /tmp/data_*.zip`; do
-	    demo/bin/capture-backblaze.sh load $file
-	done
+	[vagrant@demo ~]$ for file in `ls /tmp/data_*.zip`; do sync/bin/capture-backblaze.sh load $file; done
+    Archive:  /tmp/data_2013.zip
+      inflating: /var/spool/flume/2013-10-17.csv  
+      inflating: /var/spool/flume/2013-10-20.csv  
+      inflating: /var/spool/flume/2013-09-01.csv  
+      
+    ...
+       
+    caution: excluded filename not matched:  */\.*
+    Archive:  /tmp/data_2014.zip
+      inflating: /var/spool/flume/2014-06-14.csv  
+      inflating: /var/spool/flume/2014-12-31.csv
+    
+    ...
+      
 	```
 
-Sample flume output:
-
+    * Sample [Flume](http://flume.apache.org) logs while processing files added to `/var/spool/flume`
+    
     ```
-    face
+    16/07/26 00:16:49 INFO hdfs.BucketWriter: Creating /user/mapred/in/20160726/backblaze.1469492192427.seq.tmp
+    16/07/26 00:16:49 INFO avro.ReliableSpoolingFileEventReader: Last read was never committed - resetting mark position.
+    16/07/26 00:16:56 INFO avro.ReliableSpoolingFileEventReader: Last read took us just up to a file boundary. Rolling to the next file, if there is one.
+    16/07/26 00:16:56 INFO avro.ReliableSpoolingFileEventReader: Preparing to delete file /var/spool/flume/2013-06-07.csv
+    
+    ...
+     
+    16/07/26 00:19:20 INFO avro.ReliableSpoolingFileEventReader: Preparing to delete file /var/spool/flume/2013-07-28.csv
+    16/07/26 00:19:22 INFO avro.ReliableSpoolingFileEventReader: Last read took us just up to a file boundary. Rolling to the next file, if there is one.
+    16/07/26 00:19:22 INFO avro.ReliableSpoolingFileEventReader: Preparing to delete file /var/spool/flume/2013-07-29.csv
+    16/07/26 00:19:23 INFO hdfs.BucketWriter: Closing /user/mapred/in/20160726/backblaze.1469492192427.seq.tmp
+    16/07/26 00:19:23 INFO hdfs.BucketWriter: Renaming /user/mapred/in/20160726/backblaze.1469492192427.seq.tmp to /user/mapred/in/20160726/backblaze.1469492192427.seq
+    16/07/26 00:19:23 INFO hdfs.BucketWriter: Creating /user/mapred/in/20160726/backblaze.1469492192428.seq.tmp
+    16/07/26 00:19:25 INFO avro.ReliableSpoolingFileEventReader: Last read took us just up to a file boundary. Rolling to the next file, if there is one.
+    16/07/26 00:19:25 INFO avro.ReliableSpoolingFileEventReader: Preparing to delete file /var/spool/flume/2013-07-30.csv
+    16/07/26 00:19:26 INFO avro.ReliableSpoolingFileEventReader: Last read took us just up to a file boundary. Rolling to the next file, if there is one.
+    
+    ...
+    
+    
     ```
 
-8. Run the example Oozie workflow .
+7. Run the example Oozie workflow .
 
 	```
 	sudo -u hdfs oozie job -oozie http://localhost:11000/oozie -config demo/cfg/example/job.properties -run -D date=`date '+%Y%m%d'` 
@@ -214,4 +260,3 @@ Sample flume output:
 
 ### Oozie Web UI after VM setup 
 ![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/oozie1.png "Oozie Web UI on initial startup")
-
