@@ -76,7 +76,7 @@ sudo -u oozie hdfs dfs -put /usr/lib/pig/lib/piggybank.jar /user/oozie/share/lib
 /etc/init.d/oozie start
 
 ## Load Oozie workflow
-sudo -u hdfs hdfs dfs -put ${DEMO_DIR}/cfg/example/* /user/mapred/hdd/cfg
+sudo -u mapred hdfs dfs -put ${DEMO_DIR}/cfg/example/* /user/mapred/hdd/cfg
 
 # Overwrite default capacity-schedule.xml file
 # Our copy contains yarn.scheduler.capacity.maximum-am-resource-percent=0.6
