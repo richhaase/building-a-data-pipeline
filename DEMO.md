@@ -245,7 +245,6 @@ The output data from the example will be an ordered listing of failure rates by 
     16/07/26 00:43:55 INFO avro.ReliableSpoolingFileEventReader: Preparing to delete file /var/spool/flume/2016-03-30.csv
     16/07/26 00:43:57 INFO avro.ReliableSpoolingFileEventReader: Last read took us just up to a file boundary. Rolling to the next file, if there is one.
     16/07/26 00:43:57 INFO avro.ReliableSpoolingFileEventReader: Preparing to delete file /var/spool/flume/2016-03-31.csv
-    
     16/07/26 00:45:00 INFO hdfs.BucketWriter: Closing idle bucketWriter /user/mapred/in/20160726/backblaze.1469492192443.seq.tmp at 1469493900581
     16/07/26 00:45:00 INFO hdfs.BucketWriter: Closing /user/mapred/in/20160726/backblaze.1469492192443.seq.tmp
     16/07/26 00:45:00 INFO hdfs.BucketWriter: Renaming /user/mapred/in/20160726/backblaze.1469492192443.seq.tmp to /user/mapred/in/20160726/backblaze.1469492192443.seq
