@@ -304,7 +304,7 @@ The output data from the example will be an ordered listing of failure rates by 
 ![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/oozie1.png "Oozie Web UI on initial startup")
 
 ### Resource Manager view of a running Pig job
-![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/running-pig-job1.png "Running Pig job")
+![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/running-pig-job.png "Running Pig job")
 
 ### Completed Oozie Workflow
 ![alt text](https://github.com/richhaase/building-a-data-pipeline/raw/master/img/oozie-workflow.png "Completed Oozie Workflow")
